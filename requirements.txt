@@ -1,0 +1,7 @@
+transformers
+datasets==2.21.0
+torch
+jiwer
+pandas
+soundfile
+librosa
