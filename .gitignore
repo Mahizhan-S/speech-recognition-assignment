@@ -1,6 +1,5 @@
 __pycache__/
 *.py[cod]
-src/__init__.py
 model_cache/
 *.parquet
 .DS_Store
