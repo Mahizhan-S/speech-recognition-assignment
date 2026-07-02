@@ -1,6 +1,6 @@
 # Research Summary: Whisper
 
-## Why I Chose Whisper
+## Why I Chose Whisper 
 
 I chose Whisper instead of Wav2Vec2 and HuBERT because it gives good speech recognition results without needing extra training for many tasks. It was trained on about 680,000 hours of speech data from many languages, so it works well with different accents, languages, and noisy audio. It can also perform speech recognition and speech translation using the same model.
 
