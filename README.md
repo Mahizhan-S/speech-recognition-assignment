@@ -1,69 +1,37 @@
-# Research Summary: Whisper
+# Speech Recognition Evaluation Pipeline
 
-## Why I Chose Whisper 
-
-I chose Whisper instead of Wav2Vec2 and HuBERT because it gives good speech recognition results without needing extra training for many tasks. It was trained on about 680,000 hours of speech data from many languages, so it works well with different accents, languages, and noisy audio. It can also perform speech recognition and speech translation using the same model.
-
-## What Problem Does Whisper Solve?
-
-Whisper solves the Automatic Speech Recognition (ASR) problem by converting speech into text. It is designed to recognize speech from different speakers, languages, and recording conditions.
-
-## How Does the Architecture Work?
-
-Whisper uses a Transformer encoder-decoder architecture. First, the input audio is converted into a log-Mel spectrogram. The encoder learns useful features from the audio, and the decoder converts those features into text one token at a time.
-
-## Why Is It Better Than Previous Approaches?
-
-- It was trained on a large amount of speech data.
-- It supports many languages.
-- It works well even when there is background noise.
-- It gives good results without much additional training.
-- It can perform both speech recognition and speech translation.
-
-## What Datasets Were Used?
-
-Whisper was trained on about 680,000 hours of supervised speech data collected from the internet. The data includes English speech recognition, multilingual speech recognition, and speech translation in 96 languages.
-
-## What Are Its Limitations?
-
-- Large models need more memory and computing power.
-- It is slower than smaller speech recognition models.
-- Accuracy may reduce if the audio quality is very poor.
-- The internet data used for training may contain some bias.
-
-## Comparison with Wav2Vec2 and HuBERT
-
-| Feature | Wav2Vec2 | HuBERT | Whisper |
-|---------|----------|---------|----------|
-| Fine-tuning Required | Yes | Yes | No (for many tasks) |
-| Multilingual Support | Limited | Limited | Excellent |
-| Noise Handling | Good | Good | Excellent |
-| Speech Translation | No | No | Yes |
-
-Overall, I selected Whisper because it is easy to use, gives good accuracy, supports many languages, and performs well even without additional fine-tuning.
+A lightweight and reproducible pipeline for evaluating Automatic Speech Recognition (ASR) models. The project performs speech transcription, computes evaluation metrics, and saves both predictions and performance results in a structured format.
 
 ---
 
-# Project Implementation
+## Model
 
-## Model Used
+This project uses **OpenAI Whisper Small** for speech recognition.
 
-- openai/whisper-small
-
-## Dataset Used
-
-- LibriSpeech ASR (Validation - Clean)
-
-## Evaluation Metrics
-
-- Word Error Rate (WER)
-- Character Error Rate (CER)
-- Average Inference Latency
-- Number of Processed Samples
+| Attribute | Value |
+|----------|-------|
+| Model | `openai/whisper-small` |
+| Framework | Hugging Face Transformers |
+| Architecture | Encoder–Decoder Transformer |
+| Task | Automatic Speech Recognition (ASR) |
+| Parameters | ~244 Million |
 
 ---
 
-# Part 3 – Project Structure
+## Dataset
+
+The evaluation is performed on the **LibriSpeech ASR Demo** dataset provided by Hugging Face.
+
+| Attribute | Value |
+|----------|-------|
+| Dataset | `hf-internal-testing/librispeech_asr_demo` |
+| Configuration | `clean` |
+| Split | `validation` |
+| Source | Hugging Face Datasets |
+
+---
+
+## Project Structure
 
 ```text
 project/
@@ -72,30 +40,58 @@ project/
 ├── requirements.txt
 ├── run.py
 ├── src/
+│   ├── __init__.py          # Marks src as a Python package
+│   ├── load_model.py        # Loads the ASR model
+│   ├── inference.py         # Generates transcriptions
+│   ├── metrics.py           # Computes evaluation metrics
+│   └── save_results.py      # Saves predictions and metrics
+│
 └── results/
+    ├── predictions.csv
+    └── metrics.json
 ```
 
 ---
 
-# Part 4 – How to Run
+## Installation
 
-## Install Dependencies
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Run the Project
+---
+
+## Usage
+
+Run the evaluation pipeline:
 
 ```bash
 python run.py
 ```
 
+The pipeline will:
+- Load the speech recognition model
+- Perform inference on the evaluation dataset
+- Compute evaluation metrics
+- Save the results in the `results/` directory
+
 ---
 
-# Output Files
+## Output
 
-After running the project, the following files are generated inside the `results/` folder.
+After execution, the following files are generated inside the `results/` folder:
 
-- predictions.csv
-- metrics.json
+| File | Description |
+|------|-------------|
+| `predictions.csv` | Ground truth and predicted transcriptions |
+| `metrics.json` | Evaluation metrics (e.g., WER, CER, and other reported metrics) |
+
+---
+
+## Notes
+
+- Install all dependencies before running the project.
+- The `results/` directory will be created automatically if it does not already exist.
+- The modules inside `src/` can be modified independently to use different ASR models, datasets, or evaluation metrics.
