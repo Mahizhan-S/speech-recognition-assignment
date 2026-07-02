@@ -99,11 +99,3 @@ After running the project, the following files are generated inside the `results
 
 - predictions.csv
 - metrics.json
-
----
-
-# References
-
-- Whisper: Robust Speech Recognition via Large-Scale Weak Supervision
-- Hugging Face Transformers
-- LibriSpeech ASR Dataset
